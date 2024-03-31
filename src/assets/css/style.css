@@ -1,4 +1,3 @@
-
 body {
   font-family: "Open Sans", sans-serif;
   color: #444444;
@@ -21,7 +20,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Raleway" ,  sans-serif !important;
+  font-family: "Raleway", sans-serif !important;
   font-weight: bold !important;
 }
 
@@ -40,6 +39,10 @@ h6 {
   height: 40px;
   border-radius: 4px;
   transition: all 0.4s;
+}
+.active {
+  font-weight: bold; /* ou qualquer outro estilo que você deseja aplicar */
+  color: red; /* por exemplo, mude a cor para vermelho */
 }
 
 .back-to-top i {
@@ -392,10 +395,12 @@ h6 {
   display: block;
 }
 
+
+
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
-#hero {
+#hero ,#body{
   width: 100%;
   min-height: 100vh;
   background: url("../img/hero-bg.jpg") top center;
@@ -403,7 +408,7 @@ h6 {
   position: relative;
 }
 
-#hero:before {
+#hero:before ,#body::before{
   content: "";
   background: rgba(0, 0, 0, 0.6);
   position: absolute;
