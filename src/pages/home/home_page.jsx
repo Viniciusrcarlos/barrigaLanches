@@ -7,7 +7,7 @@ const HomePage = () => {
 
     try {
       collectionRef.add({
-        nome: 'Teste',
+        nome: 'Daniel',
         idade: 20,
       });
       console.log('Adicionado ao Firestore com sucesso!');
