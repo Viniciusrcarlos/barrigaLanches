@@ -1,8 +1,29 @@
 import React, { useState } from 'react';
 import {Link} from "react-router-dom";
 import "./register.css";
+import {useCreateUserWithEmailAndPassword} from "react-firebase-hooks/auth";
+import {auth} from "../../services/firebase";
 
 const Register = () => {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth);
+
+    function handleSignIn(e) {
+        e.preventDefault();
+        createUserWithEmailAndPassword(email, password)
+    }
+
+    if (loading) {
+        <p>Carregando...</p>
+    }
+
     return (
         <section id="hero" className="d-flex align-items-center justify-content-center">
             <div className="container" data-aos="fade-up">
@@ -13,11 +34,11 @@ const Register = () => {
                             <h3>Crie seu cadastro:</h3>
                             <form>
                                 <div className="mb-3">
-                                    <input className="form-control text-black mb-3" placeholder="Seu e-mail"/>
-                                    <input className="form-control text-black" placeholder="Sua senha"/>
+                                    <input onChange={e => setEmail(e.target.value)} className="form-control text-black mb-3" placeholder="Seu e-mail"/>
+                                    <input onChange={e => setPassword(e.target.value)} className="form-control text-black" placeholder="Sua senha"/>
                                 </div>
-                                <button className="btn btn-success text-white form-control">
-                                    <i className="bi bi-check-circle"></i> CRIAR CADASTRO
+                                <button onClick={handleSignIn} className="btn btn-success text-white form-control">
+                                    <i  className="bi bi-check-circle"></i> CRIAR CADASTRO
                                 </button>
                             </form>
                         </div>

@@ -1,11 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "./login.css";
 import {Link} from "react-router-dom";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {useSignInWithEmailAndPassword} from 'react-firebase-hooks/auth';
+import {auth} from "../../services/firebase";
+
 
 const Login = () => {
 
-    
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
+
+    if (error) {
+        return (
+            <div>
+                <p>Error: {error.message}</p>
+            </div>
+        );
+    }
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+    if (user) {
+        return (
+            <div>
+                <p>Signed In User: {user}</p>
+            </div>
+        );
+    }
+
 
   return (
       <section id="hero" className="d-flex align-items-center justify-content-center">
@@ -17,10 +46,10 @@ const Login = () => {
                         <h3>Já é cadastrado?</h3>
                           <form>
                               <div className="mb-3">
-                                  <input className="form-control text-black mb-3" placeholder="Seu e-mail"/>
-                                  <input className="form-control text-black" placeholder="Sua senha"/>
+                                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control text-black mb-3" placeholder="Seu e-mail"/>
+                                  <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control text-black" placeholder="Sua senha"/>
                               </div>
-                              <button className="btn btn-success text-white form-control">
+                              <button onClick={() => signInWithEmailAndPassword(email, password)} className="btn btn-success text-white form-control">
                                   <i className="bi bi-check-circle"></i> FAZER LOGIN
                               </button>
                           </form>
