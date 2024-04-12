@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Login from "../pages/login/login";
-import { auth } from '../services/firebase';
 import Avatar from 'react-avatar';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { auth } from '../services/firebase';
 const NavBar = () => {
+  var user = localStorage.getItem('user');
+
     return (
         <header id="header" className="fixed-top">
             <div className="container d-flex align-items-center justify-content-lg-between">
@@ -18,16 +20,20 @@ const NavBar = () => {
                     </ul>
                 </nav>
                 {
-                    auth.currentUser ? [
+                    user ? [
                         <Dropdown color='white' className='me-4'>
                             <Dropdown.Toggle variant="Secondary" id="dropdown-basic" color='white' > 
-                                <Avatar name={auth.currentUser.email} size="40" round={true} />
+                                <Avatar name={JSON.parse(user).email} size="40" round={true} />
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu color='white'> 
                                 <Dropdown.Item href="/perfil">Perfil</Dropdown.Item>
                                 <Dropdown.Item href="/pedidos">Pedidos</Dropdown.Item>
-                                <Dropdown.Item href="/logout">Logout</Dropdown.Item>
+                                <Dropdown.Item  onClick={() =>{
+                                    auth.signOut();
+                                    localStorage.removeItem('user');
+                                    window.location.href = '/';
+                                }}>Sair</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
                     ] : [

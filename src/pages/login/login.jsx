@@ -18,7 +18,14 @@ const Login = () => {
       setLoading(true);
       setError(null);
       await signInWithEmailAndPassword(email, password);
-      navigate('/'); // Navegue para a página inicial após o login bem-sucedido
+      var user = {
+        "email": auth.currentUser.email,
+        "name": auth.currentUser.displayName,
+        "photoURL": auth.currentUser.photoURL,
+        "uid": auth.currentUser.uid
+    }
+      localStorage.setItem('user', JSON.stringify(user));
+      window.location.href = '/';
     } catch (error) {
       setError('Usuário ou senha incorretos. Por favor, tente novamente.');
     } finally {
