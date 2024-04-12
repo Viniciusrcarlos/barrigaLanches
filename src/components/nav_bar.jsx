@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-
+import Login from "../pages/login/login";
+import Avatar from 'react-avatar';
+import Dropdown from 'react-bootstrap/Dropdown';
+import { auth } from '../services/firebase';
 const NavBar = () => {
+  var user = localStorage.getItem('user');
+
     return (
         <header id="header" className="fixed-top">
             <div className="container d-flex align-items-center justify-content-lg-between">
@@ -14,7 +19,28 @@ const NavBar = () => {
                         <li><NavLink to="/contato" activeClassName="active">Contato</NavLink></li>
                     </ul>
                 </nav>
-                <Link to="/login" className="get-started-btn">Login</Link>
+                {
+                    user ? [
+                        <Dropdown color='white' className='me-4'>
+                            <Dropdown.Toggle variant="Secondary" id="dropdown-basic" color='white' > 
+                                <Avatar name={JSON.parse(user).email} size="40" round={true} />
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu color='white'> 
+                                <Dropdown.Item href="/perfil">Perfil</Dropdown.Item>
+                                <Dropdown.Item href="/pedidos">Pedidos</Dropdown.Item>
+                                <Dropdown.Item  onClick={() =>{
+                                    auth.signOut();
+                                    localStorage.removeItem('user');
+                                    window.location.href = '/';
+                                }}>Sair</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    ] : [
+                        <Link to="/login" className="get-started-btn">Login</Link>
+
+                    ]
+                }
             </div>
         </header>
     );
