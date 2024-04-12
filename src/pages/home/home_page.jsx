@@ -1,6 +1,6 @@
 import React from 'react';
 import { firestore } from '../../services/firebase'; // Importe o serviço de banco de dados do Firebase
-
+import { auth } from '../../services/firebase';
 const HomePage = () => {
   const adicionarAoFirestore = () => {
     const collectionRef = firestore.collection('testes');
@@ -18,6 +18,10 @@ const HomePage = () => {
 
   };
 
+  const c = () => {
+    console.log(auth.currentUser);
+  }
+
   return (
     <section id="hero" className="d-flex align-items-center justify-content-center">
       <div className="container" data-aos="fade-up">
@@ -30,8 +34,8 @@ const HomePage = () => {
         </div>
         <div className="row gy-4 mt-5 justify-content-center text-decoration-none" data-aos="zoom-in" data-aos-delay="250">
           <div className="col-xl-12 text-center">
-            {/* Botão para adicionar algo ao Firestore */}
-            <button onClick={adicionarAoFirestore} className="btn btn-primary">Adicionar ao Firestore</button>
+      <button onClick={c}>Teste</button>
+            
           </div>
         </div>
       </div>

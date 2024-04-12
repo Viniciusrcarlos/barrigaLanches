@@ -5,13 +5,13 @@ import { getAuth} from "firebase/auth"
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyASRJpSdmHtdh1jujkRV9bdpTNoTBM3Ne4",
-  authDomain: "barriga-cheia-69252.firebaseapp.com",
-  projectId: "barriga-cheia-69252",
-  storageBucket: "barriga-cheia-69252.appspot.com",
-  messagingSenderId: "848763490856",
-  appId: "1:848763490856:web:50246ff7ba104f66825b1d",
-  measurementId: "G-NX4R7M83NB"
+  apiKey: "AIzaSyAA1wu2sQvlzLQvGsXrWheDiEPbpnR0WZY",
+  authDomain: "barriga-lanches.firebaseapp.com",
+  projectId: "barriga-lanches",
+  storageBucket: "barriga-lanches.appspot.com",
+  messagingSenderId: "591751711184",
+  appId: "1:591751711184:web:23a6589c792a426d5a91d5",
+  measurementId: "G-0T520VG5VZ"
 };
 
 // Inicialize o Firebase

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Login from "../pages/login/login";
-
+import { auth } from '../services/firebase';
+import Avatar from 'react-avatar';
+import Dropdown from 'react-bootstrap/Dropdown';
 const NavBar = () => {
     return (
         <header id="header" className="fixed-top">
@@ -15,7 +17,24 @@ const NavBar = () => {
                         <li><NavLink to="/contato" activeClassName="active">Contato</NavLink></li>
                     </ul>
                 </nav>
-                <Link to="/login" className="get-started-btn">Login</Link>
+                {
+                    auth.currentUser ? [
+                        <Dropdown color='white' className='me-4'>
+                            <Dropdown.Toggle variant="Secondary" id="dropdown-basic" color='white' > 
+                                <Avatar name={auth.currentUser.email} size="40" round={true} />
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu color='white'> 
+                                <Dropdown.Item href="/perfil">Perfil</Dropdown.Item>
+                                <Dropdown.Item href="/pedidos">Pedidos</Dropdown.Item>
+                                <Dropdown.Item href="/logout">Logout</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    ] : [
+                        <Link to="/login" className="get-started-btn">Login</Link>
+
+                    ]
+                }
             </div>
         </header>
     );
