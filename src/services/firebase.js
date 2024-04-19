@@ -14,6 +14,7 @@ const firebaseConfig = {
   measurementId: "G-0T520VG5VZ"
 };
 
+
 // Inicialize o Firebase
 const app = firebase.initializeApp(firebaseConfig);
 
@@ -21,3 +22,5 @@ export const firestore = app.firestore();
 
 // login
 export const auth = getAuth(app)
+
+// aksdkaskd
