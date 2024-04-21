@@ -11,7 +11,7 @@ const RouterConfig = createBrowserRouter([
             { path: '/', element: <HomePage /> },
             { path: '/cardapio', element: <Cardapio /> },
             { path: '/login', element: <Login/> },
-            { path: '/register', element: <Register/> }
+            { path: '/register', element: <Register/> },
 
         ]
     },
