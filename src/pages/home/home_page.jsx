@@ -17,6 +17,7 @@ const HomePage = () => {
               Cardápio
             </button>
           </div>
+
         </div>
         <div className="row gy-4 mt-5 justify-content-center text-decoration-none" data-aos="zoom-in" data-aos-delay="250">
           <div className="col-xl-12 text-center">
