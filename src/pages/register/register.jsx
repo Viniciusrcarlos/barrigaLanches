@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './register.css';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '../../services/firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -13,34 +13,39 @@ const Register = () => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+
 
     const handleSignIn = async (e) => {
         e.preventDefault();
         try {
-            setLoading(true);
-            setError(null);
-            if (password !== confirmPassword) {
-                throw new Error('Senhas não conferem');
-            }
-            await createUserWithEmailAndPassword(email, password);
-            await auth.currentUser.displayName(name);
-            var user = {
-                "email": auth.currentUser.email,
-                "name": auth.currentUser.displayName,
-                "photoURL": auth.currentUser.photoURL,
-                "uid": auth.currentUser.uid
-            }
+            if (name.length === 0) {
+                alert("Name cannot be empty");
+            } else {
+                // Create user with email and password
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+    
+                // Update user profile with display name
+                await auth.updateProfile(user, {
+                    displayName: name
+                });
 
-localStorage.setItem('user', JSON.stringify(user));
-            setSuccess(true);
-
+                // Optionally, you can save the user's data to localStorage or state
+                const userData = {
+                    id: user.uid,
+                    name: user.displayName,
+                    email: user.email
+                };
+                localStorage.setItem('user', JSON.stringify(userData));
+    
+                console.log("User registered successfully:", user);
+            }
         } catch (error) {
-            setError(error.message);
-        } finally {
-            setLoading(false);
+            // Handle any errors that occur during registration or profile update
+            alert(error.message);
         }
     };
+    
 
     const navigate = useNavigate(); // Adicionando o hook useNavigate para redirecionamento
 
