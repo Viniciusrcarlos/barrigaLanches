@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './register.css';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { auth } from '../../services/firebase';
+import { auth } from '../../services/firebase'; // Assuming this is where Firebase is initialized
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -13,39 +13,42 @@ const Register = () => {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+    const [createUserWithEmailAndPassword, createUserLoading, createUserError] =
+        useCreateUserWithEmailAndPassword(auth);
 
     const handleSignIn = async (e) => {
         e.preventDefault();
         try {
             setLoading(true);
             setError(null);
+
             if (password !== confirmPassword) {
-                throw new Error('Senhas não conferem');
-            }
-            await createUserWithEmailAndPassword(email, password);
-            await auth.currentUser.displayName(name);
-            var user = {
-                "email": auth.currentUser.email,
-                "name": auth.currentUser.displayName,
-                "photoURL": auth.currentUser.photoURL,
-                "uid": auth.currentUser.uid
+                throw new Error('Senhas não conferem'); // Handle password mismatch
             }
 
-localStorage.setItem('user', JSON.stringify(user));
+            const { user } = await createUserWithEmailAndPassword(email, password); // Destructure user object
+            //await user.updateProfile({ displayName: name }); // Update display name asynchronously
+
+            const userToSave = {
+                email: user.email,
+                name: user.name,
+                photoURL: user.photoURL, // Assuming photoURL is available
+                uid: user.uid,
+            };
+            localStorage.setItem('user', JSON.stringify(userToSave));
             setSuccess(true);
-
         } catch (error) {
-            setError(error.message);
+            setError( 'An error occurred during registration.'); // Provide a generic error message
+            console.error('Registration error:', error); // Log the error for debugging
         } finally {
             setLoading(false);
         }
     };
 
-    const navigate = useNavigate(); // Adicionando o hook useNavigate para redirecionamento
+    const navigate = useNavigate();
 
     if (success) {
-        navigate('/login'); // Redirecionando para a página de login
+        navigate('/login');
     }
 
     return (
