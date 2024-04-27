@@ -1,0 +1,16 @@
+#total{
+    margin: 20px;
+    padding: 6px;
+    background-color: #bb2d3b;
+    width: 200px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#textoTotal{
+    color: #ffffff;
+}
+
+.carrinho{
+    margin: 50px 20px 20px 20px;
+}
