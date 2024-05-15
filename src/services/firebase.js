@@ -4,13 +4,20 @@ import { getAuth} from "firebase/auth"
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBxmNNoHzlwXKOXqbB4qSbSmCDt9IV1BE8",
-  authDomain: "bc-teste-e6334.firebaseapp.com",
-  projectId: "bc-teste-e6334",
-  storageBucket: "bc-teste-e6334.appspot.com",
-  messagingSenderId: "909791143699",
-  appId: "1:909791143699:web:7878d57cd596437875dce6",
-  measurementId: "G-CQ1VCWX722"
+  apiKey: "AIzaSyASRJpSdmHtdh1jujkRV9bdpTNoTBM3Ne4",
+
+  authDomain: "barriga-cheia-69252.firebaseapp.com",
+
+  projectId: "barriga-cheia-69252",
+
+  storageBucket: "barriga-cheia-69252.appspot.com",
+
+  messagingSenderId: "848763490856",
+
+  appId: "1:848763490856:web:50246ff7ba104f66825b1d",
+
+  measurementId: "G-NX4R7M83NB"
+
 };
 
 // Inicialize o Firebase
