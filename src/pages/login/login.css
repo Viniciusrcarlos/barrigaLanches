@@ -5,3 +5,14 @@
 #divCadastro{
     margin-top: 10vh;
 }
+
+
+@media screen and (max-width: 600px) {
+    #divTudo{
+        width: 95%;
+    }
+
+    #email{
+        width: 100% !important;
+    }
+}

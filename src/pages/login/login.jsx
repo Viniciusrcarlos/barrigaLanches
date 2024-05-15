@@ -45,7 +45,7 @@ const Login = () => {
         "name": auth.currentUser.displayName,
         "photoURL": auth.currentUser.photoURL,
         "uid": auth.currentUser.uid
-    }
+      }
       localStorage.setItem('user', JSON.stringify(user));
       window.location.href = '/';
     } catch (error) {
@@ -58,9 +58,11 @@ const Login = () => {
 
   return (
     <section id="hero" className="d-flex align-items-center justify-content-center">
-      <div className="container" data-aos="fade-up">
+      <div className="container " data-aos="fade-up">
         <div className="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
-          <div className="col-xl-6 col-lg-8" id="divTudo">
+          <div className="col-xl-6 col-lg-8" id="divTudo"
+          style={{ backgroundColor: "#000000", borderRadius: "10px",border: "1px solid #ffc451"}}
+          >
 
             {showForgotPassword ? (
               <div className="text-white" id="divForgotPassword">
@@ -73,6 +75,7 @@ const Login = () => {
                       onChange={(e) => setForgotPasswordEmail(e.target.value)}
                       className="form-control text-black mb-3"
                       placeholder="Seu e-mail"
+                      color='white'
                     />
                   </div>
                   <button className="btn btn-success text-white form-control">
@@ -86,14 +89,15 @@ const Login = () => {
             ) : (
               <div className="text-white" id="divLogin">
                 <h3>Já é cadastrado?</h3>
-                <form onSubmit={signIn}>
-                  <div className="mb-3">
+                <form onSubmit={signIn} className='text-white d-flex flex-column justify-content-end '>
+                  <div className="mb-3" >
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="form-control text-black mb-3"
                       placeholder="Seu e-mail"
+                      id="email"
                     />
                     <input
                       type="password"
@@ -101,50 +105,66 @@ const Login = () => {
                       onChange={(e) => setPassword(e.target.value)}
                       className="form-control text-black"
                       placeholder="Sua senha"
+                      id="password"
                     />
                   </div>
+                  <a href="#" onClick={() => setShowForgotPassword(true)}
+                    className='text-white text-decoration-none mt-0'
+                    style={{ width: '100%', textAlign: 'right' }}
+                  >Esqueci a senha!</a>
                   <button
-                  onClick={signIn}
-                  className="btn btn-success text-white form-control"
-                  disabled={loading}
+                    onClick={signIn}
+                    className="btn  yellowButton form-control"
+                    disabled={loading}
+
+                  >
+                    {loading ? (
+                      <div className="spinner-border spinner-border-sm" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                    ) : (
+                      <span className='fw-600' style={{ color: "#ffc451" }}>
+                        <i className="bi bi-check-circle"></i> FAZER LOGIN
+                      </span>
+                    )}
+                  </button>
+
+                </form>
+              </div>
+            )}
+
+            {error && (
+              <div className="text-white" id="divError">
+                <p>Erro: {error.message}</p>
+              </div>
+            )}
+            {loading && (
+              <div className="text-white" id="divLoading">
+                <p>Carregando...</p>
+              </div>
+            )}
+
+            <div className="text-white d-flex flex-row justify-content-center align-items-center" >
+              <h3
+                style={{ color: "#EFD195", fontWeight: "bold", scale: "0.7" }}
+              >Seu primeiro pedido?
+                <br />
+                <Link to="/register" className=""
+                  style={{ width: "100%" }}
                 >
-                  {loading ? (
-                    <div className="spinner-border spinner-border-sm" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
-                  ) : (
-                    <span>
-                      <i className="bi bi-check-circle"></i> FAZER LOGIN
-                    </span>
-                  )}
-                </button>
-                                    <a href="#" onClick={() => setShowForgotPassword(true)}>Esqueci a senha</a>
-                                </form>
-                            </div>
-                        )}
+                  <span className='fw-600' style={{ color: "#ffc453" }}>
+                    CRIAR CONTA<i className="bi bi-person-plus"></i>
+                  </span>
+                </Link>
+              </h3>
 
-                        {error && (
-                            <div className="text-white" id="divError">
-                                <p>Erro: {error.message}</p>
-                            </div>
-                        )}
-                        {loading && (
-                            <div className="text-white" id="divLoading">
-                                <p>Carregando...</p>
-                            </div>
-                        )}
-                        
-                        <div className="text-white" id="divCadastro">
-                            <h3>Seu primeiro pedido?</h3>
-                            <Link to="/register" className="btn bg-primary text-white form-control"><i
-                                className="bi bi-person"></i> CADASTRE-SE</Link>
-                        </div>
-
-                    </div>
-                </div>
             </div>
-        </section>
-    );
+
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Login;
