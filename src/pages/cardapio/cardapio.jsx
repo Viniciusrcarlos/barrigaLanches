@@ -64,7 +64,7 @@ const Cardapio = () => {
                                     </div>
                                     <div className="col-md-8">
                                         <div className="card-body">
-                                            <h5 className="card-title d-flex justify-content-between align-items-center">{item.title}<FaHeart color='red' /></h5>
+                                            <h5 className="card-title d-flex justify-content-between align-items-center">{item.title}<FaHeart color='red' /></h5>git
                                             <p style={{ borderBottom: '1px solid #ccc' }} className="card-text">{item.description}</p>
                                             <p className="card-text">Quantidade disponível: {item.quantity}</p>
                                         </div>
